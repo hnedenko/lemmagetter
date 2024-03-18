@@ -2,6 +2,8 @@
 
 An endpoint that receives an array of words (string) as input, turns the key-value dictionary, where the key is the word from the passed array, the value is the lemma of the word.
 
+Saves query statistics to DB.
+
 Accepts POST request, implemented building with Docker.
 
 Example:  
