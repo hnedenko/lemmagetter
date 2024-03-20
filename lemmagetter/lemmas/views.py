@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 """
 def get_lemmas(words):
@@ -16,11 +19,13 @@ def get_lemmas(words):
     return lemmas
 """
 
+class LemmasAPIView(APIView):
+    permission_classes = [AllowAny]
 
-def get_lemmas(request):
-    lemmas = {
-        'best': 'play',
-        'running': 'Alex'
-    }
+    def get(self, request):
+        print("Запрос GET принят!")
+        return Response({'title': 'Круто! Метод GET работает!'})
 
-    return lemmas
+    def post(self, request):
+        print("Запрос POST принят!")
+        return Response({'title': 'Круто! Метод POST работает!'})
