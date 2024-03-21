@@ -2,30 +2,27 @@ from django.shortcuts import render
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.request import Request
 from rest_framework.permissions import AllowAny
 
-"""
-def get_lemmas(words):
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
-    
-    lemmas = dict()
+import spacy
 
-    doc = nlp(" ".join(words))
-
-    for token in doc:
-        lemmas[token] = token.lemma_
-
-    return lemmas
-"""
 
 class LemmasAPIView(APIView):
-    permission_classes = [AllowAny]
 
-    def get(self, request):
-        print("Запрос GET принят!")
-        return Response({'title': 'Круто! Метод GET работает!'})
+    def initial(self, request, *args, **kwargs):
+        permission_classes = [AllowAny]
 
     def post(self, request):
-        print("Запрос POST принят!")
-        return Response({'title': 'Круто! Метод POST работает!'})
+
+        # split input str to world list
+        words = request.data['words'].replace(',', '').split()
+
+        # analyze words: get lemmas
+        nlp = spacy.load("en_core_web_sm")
+        lemmas = dict()
+        doc = nlp(" ".join(words))
+        for token in doc:
+            lemmas[str(token)] = token.lemma_
+
+        return Response(lemmas)
