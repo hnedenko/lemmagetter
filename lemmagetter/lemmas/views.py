@@ -20,8 +20,9 @@ class LemmasAPIView(APIView):
         # analyze words: get lemmas
         nlp = spacy.load("en_core_web_sm")
         lemmas = dict()
+        lemmas['lemmas'] = dict()
         doc = nlp(" ".join(words))
         for token in doc:
-            lemmas[str(token)] = token.lemma_
+            lemmas['lemmas'][str(token)] = token.lemma_
 
         return Response(lemmas, 200)

@@ -5,8 +5,8 @@ An endpoint that receives an array of words (string) as input, turns the key-val
 Accepts POST request, implemented building with Docker.
 
 Example:  
-Input: {"words": ["best", "running"]}  
-Output: { "best": "good", "running": "run" }
+Input: {"words": ["best", "running"]}
+Output: {"lemmas": {"best": "good", "running": "run" }}
 
 
 - English only
