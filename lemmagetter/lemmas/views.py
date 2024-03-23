@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.request import Request
 from rest_framework.permissions import AllowAny
 
 import spacy
@@ -25,4 +24,4 @@ class LemmasAPIView(APIView):
         for token in doc:
             lemmas[str(token)] = token.lemma_
 
-        return Response(lemmas)
+        return Response(lemmas, 200)
