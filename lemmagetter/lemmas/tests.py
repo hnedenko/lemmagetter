@@ -1,35 +1,28 @@
-from django.test import TestCase
-from . import views
-from rest_framework.test import APIClient, APITestCase
-from rest_framework.request import Request
+from django.test import TestCase, Client
+from rest_framework.test import APITestCase
 
 
 class TestsGetLemmas(APITestCase):
 
     def setUp(self):
-        pass
+        self.client = Client()
+        self.url_getalllemmas = 'http://127.0.0.1:8000/lemmas/api/v1/getalllemmas'
 
     def tearDown(self):
         pass
 
     def test_get_lemmas_status(self):
-        words = ["best", "running"]
-        correct_lemmas = {'best': 'good', 'running': 'run'}
+        request = {"words": '["best", "running"]'}
+        expected_response = {"lemmas": {"best": "good", "running": "run"}}
 
-        client = APIClient()
-        response = self.client.post(views.LemmasAPIView.as_view(), {'words': words})
-        response.render()
+        response = self.client.post(self.url_getalllemmas, data=request)
 
         self.assertEqual(200, response.status_code)
 
-"""
     def test_get_lemmas_data(self):
-        words = ["best", "running"]
-        correct_lemmas = {'best': 'good', 'running': 'run'}
+        request = {"words": '["best", "running"]'}
+        expected_response = {"lemmas": {"best": "good", "running": "run"}}
 
-        client = APIClient()
-        response = client.post(views.LemmasAPIView.as_view(), {'words': words})
-        response.render()
+        response = self.client.post(self.url_getalllemmas, data=request)
 
-        self.assertEqual(correct_lemmas, response)
-"""
+        self.assertEqual(expected_response, response.data)
