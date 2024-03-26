@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 import json
 
 from rest_framework.views import APIView
@@ -11,6 +9,10 @@ import spacy
 
 class LemmasAPIView(APIView):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.nlp = spacy.load("en_core_web_sm")
+
     def initial(self, request, *args, **kwargs):
         permission_classes = [AllowAny]
 
@@ -20,10 +22,9 @@ class LemmasAPIView(APIView):
         words = json.loads(request.data['words'])
 
         # analyze words: get lemmas
-        nlp = spacy.load("en_core_web_sm")
         lemmas = dict()
         lemmas['lemmas'] = dict()
-        doc = nlp(" ".join(words))
+        doc = self.nlp(" ".join(words))
         for token in doc:
             lemmas['lemmas'][str(token)] = token.lemma_
 
