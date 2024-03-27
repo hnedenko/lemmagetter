@@ -7,6 +7,8 @@ Example:
 Request: {"words": ["best", "running"]}  
 Response: {"lemmas": {"best": "good", "running": "run" }}
 
+Saving logs with request-response info to DB.
+
 Implementing building with Docker:  
 "docker-compose build"  
 "docker run -it --rm -p 7666:8000 lemmagetter-web-app"
