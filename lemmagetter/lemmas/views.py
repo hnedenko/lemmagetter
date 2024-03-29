@@ -8,7 +8,7 @@ from datetime import datetime
 
 import spacy
 
-import logging
+# import logging
 
 
 class LemmasAPIView(APIView):
@@ -16,7 +16,7 @@ class LemmasAPIView(APIView):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.nlp = spacy.load("en_core_web_sm")
-        self.logger = logging.getLogger()
+        # self.logger = logging.getLogger()
 
     def initial(self, request, *args, **kwargs):
         permission_classes = [AllowAny]
@@ -34,10 +34,12 @@ class LemmasAPIView(APIView):
         for token in doc:
             lemmas['lemmas'][str(token)] = token.lemma_
 
+        """
         # save log about request to DB
         self.logger.info({'request': request.data,
                           'response': lemmas,
                           'timestamp': start_time,
                           'duration': datetime.now() - start_time})
+        """
 
         return Response(lemmas, 200)

@@ -2,3 +2,5 @@ Django==3.2
 djangorestframework
 spacy
 django-db-logger
+postgres
+psycopg2-binary
